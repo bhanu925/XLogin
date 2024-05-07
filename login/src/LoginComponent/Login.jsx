@@ -3,12 +3,16 @@ import { useState } from 'react';
 const Login = ()=>{
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');
-    const [welcomeOn , setWelcomeOn ] = useState(false);
+    const [ welcomeOn , setWelcomeOn ] = useState(false);
+    const [ errorMessage, setErrorMessage ] = useState('');
 
     const handleSubmit =(event) =>{
         event.preventDefault();
-        if(username==='user' && password==='password'){
+        if(username==='user' && password==='password'){            
             setWelcomeOn(true);
+        }
+        else{
+            setErrorMessage('Invalid username or password');
         }
     }
 
@@ -17,7 +21,10 @@ const Login = ()=>{
         <div className="login">
             <h1>Login Page</h1>
             {!welcomeOn?
-            (<form onSubmit={handleSubmit}>
+            (
+            
+            <form onSubmit={handleSubmit}>
+                { errorMessage && <p>{errorMessage}</p> }
                 <div>
                    <label htmlFor="username">Username:</label>
                     <input onChange={(e)=>setUsername(e.target.value)}
